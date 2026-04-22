@@ -25,7 +25,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => setUserRole(null);
 
   return (
-    <AuthContext.Provider value={{ userRole, isLoggedIn: userRole !== null, login, logout }}>
+    <AuthContext.Provider
+      value={{ userRole, isLoggedIn: userRole !== null, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

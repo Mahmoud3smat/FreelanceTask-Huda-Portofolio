@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Briefcase, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/Contexts/AuthContext";
 import { toast } from "sonner";
 
-const Navbar = () => {
+export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -14,7 +14,11 @@ const Navbar = () => {
 
   const navLinks = [
     { to: "/", label: "Home", show: true },
-    { to: "/jobs", label: "Find Jobs", show: !isLoggedIn || userRole === "seeker" },
+    {
+      to: "/jobs",
+      label: "Find Jobs",
+      show: !isLoggedIn || userRole === "seeker",
+    },
     { to: "/about", label: "About", show: true },
     { to: "/team", label: "Team", show: true },
   ];
@@ -31,7 +35,10 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-foreground">
+        <Link
+          to="/"
+          className="flex items-center gap-2 font-display text-xl font-bold text-foreground"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-lg hero-gradient">
             <Briefcase className="h-5 w-5 text-primary-foreground" />
           </div>
@@ -60,22 +67,33 @@ const Navbar = () => {
             <>
               {userRole === "seeker" && (
                 <Link to="/seeker-dashboard">
-                  <Button variant="ghost" size="sm">My Dashboard</Button>
+                  <Button variant="ghost" size="sm">
+                    My Dashboard
+                  </Button>
                 </Link>
               )}
               {userRole === "company" && (
                 <Link to="/company-dashboard">
-                  <Button variant="ghost" size="sm">Company Dashboard</Button>
+                  <Button variant="ghost" size="sm">
+                    Company Dashboard
+                  </Button>
                 </Link>
               )}
-              <Button variant="outline" size="sm" className="gap-2" onClick={handleLogout}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-2"
+                onClick={handleLogout}
+              >
                 <LogOut className="h-4 w-4" /> Log Out
               </Button>
             </>
           ) : (
             <>
               <Link to="/login">
-                <Button variant="ghost" size="sm">Log In</Button>
+                <Button variant="ghost" size="sm">
+                  Log In
+                </Button>
               </Link>
               <Link to="/register">
                 <Button size="sm">Get Started</Button>
@@ -85,7 +103,10 @@ const Navbar = () => {
         </div>
 
         {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} className="md:hidden text-foreground">
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-foreground"
+        >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
@@ -118,23 +139,39 @@ const Navbar = () => {
                 {isLoggedIn ? (
                   <>
                     {userRole === "seeker" && (
-                      <Link to="/seeker-dashboard" onClick={() => setOpen(false)}>
-                        <Button variant="outline" className="w-full">My Dashboard</Button>
+                      <Link
+                        to="/seeker-dashboard"
+                        onClick={() => setOpen(false)}
+                      >
+                        <Button variant="outline" className="w-full">
+                          My Dashboard
+                        </Button>
                       </Link>
                     )}
                     {userRole === "company" && (
-                      <Link to="/company-dashboard" onClick={() => setOpen(false)}>
-                        <Button variant="outline" className="w-full">Company Dashboard</Button>
+                      <Link
+                        to="/company-dashboard"
+                        onClick={() => setOpen(false)}
+                      >
+                        <Button variant="outline" className="w-full">
+                          Company Dashboard
+                        </Button>
                       </Link>
                     )}
-                    <Button className="w-full gap-2" variant="destructive" onClick={handleLogout}>
+                    <Button
+                      className="w-full gap-2"
+                      variant="destructive"
+                      onClick={handleLogout}
+                    >
                       <LogOut className="h-4 w-4" /> Log Out
                     </Button>
                   </>
                 ) : (
                   <>
                     <Link to="/login" onClick={() => setOpen(false)}>
-                      <Button variant="outline" className="w-full">Log In</Button>
+                      <Button variant="outline" className="w-full">
+                        Log In
+                      </Button>
                     </Link>
                     <Link to="/register" onClick={() => setOpen(false)}>
                       <Button className="w-full">Get Started</Button>
@@ -149,5 +186,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
